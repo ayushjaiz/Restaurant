@@ -14,12 +14,10 @@ const Body = () => {
     const [allRestaurants, setAllRestaurants] = useState("");
     const [filteredRestaurants, setFilteredRestaurants] = useState()
 
-    useEffect(() => {
-        getRestaurants();
-    }, []);
+    useEffect(() => { getRestaurants() }, []);
 
     async function getRestaurants() {
-        const data = await fetch("https://www.swiggy.com/dapi/restaurants/list/v5?lat=12.9351929&lng=77.62448069999999&page_type=DESKTOP_WEB_LISTING");
+        const data = await fetch("https://www.swiggy.com/dapi/restaurants/list/v5?lat=28.608848658684735&lng=77.35975004732609&is-seo-homepage-enabled=true&page_type=DESKTOP_WEB_LISTING");
         const json = await data.json();
 
         // console.log(json?.data?.cards[2].card.card.gridElements.infoWithStyle.restaurants)
@@ -31,7 +29,7 @@ const Body = () => {
         <h1>No restaurant match your filter!!</h1>
     }
 
-    return (allRestaurants?.length === 0) ? <Shimmer /> : (
+    return (
         <>
             <div className="search-container">
                 <input
@@ -55,10 +53,15 @@ const Body = () => {
                     Search
                 </button>
             </div>
-            <div className="restaurant-list">
-                {(filteredRestaurants.length === 0) ? <h1>No restaurant matching</h1>
-                    : filteredRestaurants?.map((restaurant) => <RestaurantCard {...restaurant.info} key={restaurant.info.id} />)}
-            </div>
+
+            {(allRestaurants?.length === 0) ? <Shimmer /> :
+                <div className="restaurant-list">
+
+                    {(filteredRestaurants?.length === 0) ? <h1>No restaurant matching</h1> :
+                        filteredRestaurants?.map((restaurant) =>
+                            <RestaurantCard {...restaurant.info} key={restaurant.info.id} />)}
+                </div>
+            }
         </>
     )
 }
