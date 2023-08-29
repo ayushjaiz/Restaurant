@@ -1,12 +1,14 @@
 import { Outlet } from "react-router-dom"
-import Profile from "./Profile"
+import ProfileClass from "./ProfileClass"
 
 const About = () => {
     return (
         <>
-            <Outlet />
-            {/* <Profile /> */}
             <h4>This is About</h4>
+
+            {/* <Outlet /> */}
+            {/* <ProfileFunction message={"Ayush Jaiswal function"} /> */}
+            <ProfileClass message={"Ayush Jaiswal class"} />
         </>
     )
 }
