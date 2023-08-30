@@ -1,4 +1,5 @@
 import React from "react";
+import UserContext from "../utils/UserContext";
 
 class ProfileClass extends React.Component {
 
@@ -24,6 +25,14 @@ class ProfileClass extends React.Component {
             <>
                 {/* <h2>Message: {this.props.message}</h2> */}
                 <h2>Name: {this.state.userInfo.name}</h2>
+
+                <UserContext.Consumer>
+                    {(value) => {
+                        console.log(value);
+                        <h4 className="font-bold">Created By: {value.name}</h4>
+                    }}
+                </UserContext.Consumer>
+
                 <h2>Location: {this.state.userInfo.location}</h2>
                 {console.log(this.state.userInfo)}
             </>
