@@ -7,6 +7,6 @@ const UserContext = createContext({
     }
 });
 
-console.log(UserContext);
+UserContext.displayName = "UserContext";
 
 export default UserContext;

@@ -6,8 +6,7 @@ const Footer = () => {
 
     return (
         <>
-            <h4>Footer</h4>
-            <h1>This site is developed by {user.name}</h1>
+            <h1>This site is developed by {user.name} @{user.email}</h1>
         </>
 
     )

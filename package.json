@@ -4,16 +4,18 @@
   "description": "",
   "scripts": {
     "test": "jest",
-    "start": "parcel index.html",
-    "build": "parcel build index.html"
+    "start": "node api.js && parcel index.html",
+    "build": "node api.js && parcel build index.html"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@reduxjs/toolkit": "^1.9.5",
     "dom": "^0.0.3",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+    "react-redux": "^8.1.2",
     "react-router-dom": "^6.15.0"
   },
   "devDependencies": {
