@@ -3,7 +3,7 @@ import { IMG_CON_URL } from "../constants";
 
 const RestaurantCard = ({ name, cuisines, lastMileTravelString, cloudinaryImageId, id }) => {
     return (
-        <div className="card p-2 m-2 shadow-lg bg-pink-50">
+        <div className="card w-[230px] h-[300px] p-2 m-2 shadow-lg bg-pink-50">
             <img src={IMG_CON_URL + cloudinaryImageId} />
             <Link to={"/restaurant/" + id}><h2 className="font-bold text-xl">{name}</h2></Link>
             <h2>{cuisines.join(", ")}</h2>

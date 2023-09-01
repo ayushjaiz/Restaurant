@@ -1,14 +1,17 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import RestaurantCard from "./RestaurantCard";
 import Shimmer from "./Shimmer";
 import { API_URL } from "../constants";
 import useOnline from "../utils/useOnline";
 import { filterData } from "../utils/helper";
+import UserContext from "../utils/UserContext";
 
 const Body = () => {
     const [searchInput, setSearchInput] = useState("");
     const [allRestaurants, setAllRestaurants] = useState("");
-    const [filteredRestaurants, setFilteredRestaurants] = useState()
+    const [filteredRestaurants, setFilteredRestaurants] = useState();
+
+    const { user, setUser } = useContext(UserContext)
 
     useEffect(() => { getRestaurants() }, []);
 
@@ -53,11 +56,26 @@ const Body = () => {
                 >
                     Search
                 </button>
+
+                <input
+                    type="text"
+                    className="focus:bg-slate-200"
+                    placeholder="Enter your name"
+                    value={user.name}
+                // onChange={
+                //     (e) => {
+                //         setUser({
+                //             ...user,
+                //             name: e.target.value,
+                //         });
+                //     }
+                // }
+                />
             </div>
 
             {(allRestaurants?.length === 0) ? <Shimmer /> :
 
-                <div className="restaurant-list flex-wrap">
+                <div className="restaurant-list flex flex-wrap">
                     {(filteredRestaurants?.length === 0) ? <h1>No restaurant matching</h1> :
 
                         filteredRestaurants?.map((restaurant) =>

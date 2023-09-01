@@ -1,19 +1,26 @@
-import { useEffect, useState } from "react"
-import { API_URL } from "../constants";
+import { useState, useEffect } from "react";
+import { RESTAURANT_URL } from "../constants"
 
-const useRestaurantInfo = (resId) => {
-    const [restaurantInfo, setRestaurantInfo] = useState(null);
-    useEffect(() => { getRestaurantInfo() }, []);
+const useRestuarant = (resId) => {
+    const [restInformation, setRestInformation] = useState(null);
+    const [recommended, setRecommended] = useState(null);
 
-    async function getRestaurantInfo() {
-        const data = await fetch(API_URL);
+    useEffect(() => { getRestoInfo() }, []);
+
+    async function getRestoInfo() {
+        const data = await fetch(RESTAURANT_URL + resId);
         const json = await data.json();
 
-        const restaurants = json?.data?.cards[2]?.card?.card?.gridElements?.infoWithStyle?.restaurants;
-        const restaurantInfo = restaurants.filter((restaurant) => restaurant?.info?.id === resId)[0].info;
-        setRestaurantInfo(restaurantInfo);
-    };
-    return restaurantInfo;
-}
+        setRestInformation(json?.data?.cards[0]?.card?.card?.info);
 
-export default useRestaurantInfo;
+        const [cards] = Object.values(json?.data?.cards[2]);
+        const { REGULAR } = { ...cards.cardGroupMap };
+        const cards1 = Object.values(REGULAR.cards).filter((e) => {
+            return e.card?.card?.title === "Recommended";
+        });
+        setRecommended(...cards1);
+    }
+    return [restInformation, recommended];
+};
+
+export default useRestuarant;
